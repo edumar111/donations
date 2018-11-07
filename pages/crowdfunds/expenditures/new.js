@@ -7,7 +7,7 @@ import Layout from '../../../components/Layout';
 
 class ExpenditureNew extends Component {
   state = {
-    value: '',
+    amount: '',
     description: '',
     recipient: '',
     loading: false,
@@ -24,14 +24,14 @@ class ExpenditureNew extends Component {
     event.preventDefault();
 
     const crowdfund = Crowdfund(this.props.address);
-    const { description, value, recipient } = this.state;
+    const { description, amount, recipient } = this.state;
 
     this.setState({ loading: true, errorMessage: '' });
 
     try {
       const accounts = await web3.eth.getAccounts();
       await crowdfund.methods
-        .requestExpenditure(description, web3.utils.toWei(value, 'ether'), recipient)
+        .requestExpenditure(description, web3.utils.toWei(amount, 'ether'), recipient)
         .send({ from: accounts[0] });
 
       Router.pushRoute(`/crowdfunds/${this.props.address}/expenditures`);
@@ -53,24 +53,24 @@ class ExpenditureNew extends Component {
           <Form.Field>
             <label>Description</label>
             <Input
-              value={this.state.description}
+              amount={this.state.description}
               onChange={event =>
                 this.setState({ description: event.target.value })}
             />
           </Form.Field>
 
           <Form.Field>
-            <label>Value in Ether</label>
+            <label>amount in Ether</label>
             <Input
-              value={this.state.value}
-              onChange={event => this.setState({ value: event.target.value })}
+              amount={this.state.amount}
+              onChange={event => this.setState({ amount: event.target.value })}
             />
           </Form.Field>
 
           <Form.Field>
             <label>Recipient</label>
             <Input
-              value={this.state.recipient}
+              amount={this.state.recipient}
               onChange={event =>
                 this.setState({ recipient: event.target.value })}
             />

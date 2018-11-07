@@ -74,9 +74,9 @@ class CrowdfundShow extends Component {
         <h3>Crowdfund Show</h3>
         <Grid>
           <Grid.Row>
-            <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
+            <Grid.Column width={12}>{this.renderCards()}</Grid.Column>
 
-            <Grid.Column width={6}>
+            <Grid.Column width={4}>
               <ContributeForm address={this.props.address} />
             </Grid.Column>
           </Grid.Row>

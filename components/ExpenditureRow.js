@@ -25,6 +25,7 @@ class ExpenditureRow extends Component {
   render() {
     const { Row, Cell } = Table;
     const { id, expenditure, approversCount } = this.props;
+    //console.log("expenditure==>",expenditure)
     const readyToFinalize = expenditure.approvalCount > approversCount / 2;
 
     return (
@@ -34,7 +35,7 @@ class ExpenditureRow extends Component {
       >
         <Cell>{id}</Cell>
         <Cell>{expenditure.description}</Cell>
-        <Cell>{web3.utils.fromWei(expenditure.value, 'ether')}</Cell>
+        <Cell>{web3.utils.fromWei(expenditure.amount, 'ether')}</Cell>
         <Cell>{expenditure.recipient}</Cell>
         <Cell>
           {expenditure.approvalCount}/{approversCount}
