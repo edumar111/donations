@@ -4,7 +4,7 @@ const  compiledFactory = require('./build/CrowdfundFactory.json');
 var mnemonic = 'brand tail can skill write cash order dad robot omit history clay';
 const provider = new HDWalletProvider(
 	mnemonic,
-	"https://rinkeby.infura.io/v3/d28d067b389343e493fc51a68c8c38ef");
+	"http://35.231.124.87:8545");
 
 const web3 = new Web3(provider);
 
