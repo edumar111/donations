@@ -6,7 +6,7 @@ export default () => {
   return (
     <Menu style={{ marginTop: '10px' }}>
       <Link route="/">
-        <a className="item">CrowdCoin</a>
+        <a className="item">Everis foundation </a>
    	  </Link>
 
       <Menu.Menu position="right">
@@ -14,9 +14,6 @@ export default () => {
           <a className="item">Crowdfunds</a>
         </Link>
 
-        <Link route="/crowdfunds/new">
-          <a className="item">+</a>
-        </Link>
       </Menu.Menu>
     </Menu>
   );
