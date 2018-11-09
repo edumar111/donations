@@ -1,15 +1,46 @@
 pragma solidity ^0.4.24 ;
 
 contract CrowdfundFactory{
-    address [] public deployedCrowdfunds;
+    Funds [] public crowdfunds;
+    struct Funds {
+        address deploy;
+        bytes32 name;
+        bool status;
+    }
     
-    function createCrowdfund(uint minimun) public{
-       address newCrowdfund =  new Crowdfund(minimun,msg.sender );
-       deployedCrowdfunds.push(newCrowdfund);
+    function createCrowdfund(uint minimun, string name) public{
+       address newCrowdfund =  new Crowdfund(minimun,name,msg.sender );
+       Funds memory funds = Funds({
+           deploy: newCrowdfund,
+           name: stringToBytes32(name),
+           status: true
+       });
+       crowdfunds.push(funds);
     }
-    function getDeployedCrowdfunds() public view returns (address[]){
-        return deployedCrowdfunds;
+    
+    function getDeployedCrowdfunds() public view returns (address[], bytes32[], bool[]) {
+        uint length = crowdfunds.length;
+        bytes32 [] memory names = new bytes32[](length);
+        bool [] memory status = new bool[](length);
+        address[] memory deploys = new address[](length);
+        for (uint index = 0; index < length; index++) {
+            deploys[index] = crowdfunds[index].deploy;
+            names[index]   = crowdfunds[index].name;
+            status[index]  = crowdfunds[index].status;
+        }
+        return (deploys, names, status);
     }
+    
+    function stringToBytes32(string memory source) public pure returns (bytes32 result) {
+        bytes memory tempEmptyStringTest = bytes(source);
+        if (tempEmptyStringTest.length == 0) {
+            return 0x0;
+        }
+        assembly {
+            result := mload(add(source, 32))
+        }
+    }
+   
 }
 
 contract Crowdfund {
@@ -25,6 +56,7 @@ contract Crowdfund {
     Expenditure[] public expenditures;
     address public owner;
     uint public minimumContribution;
+    string public nameCrowdfund;
     mapping(address=>bool) public approvers;
     uint public approversCount;
     
@@ -34,9 +66,10 @@ contract Crowdfund {
         _;
     }
     
-    constructor(uint minimum, address creator) public {
+    constructor(uint minimum, string name ,address creator) public {
         owner = creator;
         minimumContribution = minimum;
+        nameCrowdfund = name;
     }
     
     function contribute() public payable{
@@ -76,14 +109,15 @@ contract Crowdfund {
         expenditure.complete = true;
     }
     function getSummary() public view returns (
-      uint, uint, uint, uint, address
+      uint, uint, uint, uint, address, string
       ) {
         return (
           minimumContribution,
           this.balance,
           expenditures.length,
           approversCount,
-          owner
+          owner,
+          nameCrowdfund
         );
     }
 

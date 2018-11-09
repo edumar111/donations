@@ -16,19 +16,19 @@ beforeEach(async() =>{
 
 	factory = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
 	.deploy({data: compiledFactory.bytecode})
-	.send({from:accounts[0], gas:'1000000'});
+	.send({from:accounts[0], gas:'2721975'});
 
-	await factory.methods.createCrowdfund('20000000000000000')
-	.send({from:accounts[0], gas:'1000000'});
+	await factory.methods.createCrowdfund('20000000000000000','test01')
+	.send({from:accounts[0], gas:'2721975'});
 
-	//const addresses = await factory.methods.getDeployedCrowdfunds().call();
-	//crowfundAddress = addresses[0];
+	const crowfunds = await factory.methods.getDeployedCrowdfunds().call();
+	crowfundAddress = crowfunds[0];
 	//esto es lo mismo
-	[crowfundAddress] = await factory.methods.getDeployedCrowdfunds().call();
+	//[crowfundAddress] = await factory.methods.getDeployedCrowdfunds().call();
 
 	crowfund = await new web3.eth.Contract(
 		JSON.parse(compliedCrowfund.interface),
-		crowfundAddress
+		crowfundAddress[0]
 		);
 });
 
@@ -38,12 +38,20 @@ describe('Crowfund',()=>{
 		assert.ok(factory.options.address);
 	});
 
-	it('marks caller as the campaing owner', async () => {
+	it('marks caller as the Crowfund owner', async () => {
 		const owner = await crowfund.methods.owner().call();
 		assert.equal(accounts[0], owner);
 
 	});
+	it('validate the name of Crowfund ', async () => {
+		let crowfundNames;
+		const crowfunds = await factory.methods.getDeployedCrowdfunds().call();
+		crowfundNames = crowfunds[1];
 
+		//const nameCrowdfund = await crowfund.methods.nameCrowdfund().call();
+		assert.equal('test01', web3.utils.hexToUtf8(crowfundNames[0]));
+
+	});
 	it('allows people to contribute money and marks them as approvers', async () => {
 		await crowfund.methods.contribute().send({
 			value:'20000000000000001',
@@ -66,7 +74,7 @@ describe('Crowfund',()=>{
 		}
 	});
 
-	it('allows a owner to make a payment request', async () =>{
+	it('allows a owner to make a payment expenditure', async () =>{
 		await crowfund.methods
 		.requestExpenditure('Buy batteries','10000000000000', accounts[1])
 		.send({
@@ -79,7 +87,7 @@ describe('Crowfund',()=>{
 
 	});
 
-	it('proocesses request', async() => {
+	it('proocesses expenditure', async() => {
 		let balance1 = await web3.eth.getBalance(accounts[1]);
 		balance1 = web3.utils.fromWei(balance1,'ether');
 		balance1 = parseFloat(balance1);

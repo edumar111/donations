@@ -18,7 +18,7 @@ const deploy = async () =>{
 
 	 const result = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
 	 .deploy({data:compiledFactory.bytecode})
-	 .send({gas:'991854',from:accounts[0]});
+	 .send({gas:'1981854',from:accounts[0]});
 	 //console.log(compiledFactory.interface);
 	 console.log('Constract deployed to', result.options.address);	 
 };
