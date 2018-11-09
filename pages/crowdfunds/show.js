@@ -18,38 +18,40 @@ class CrowdfundShow extends Component {
       balance: summary[1],
       expendituresCount: summary[2],
       approversCount: summary[3],
-      manager: summary[4]
+      owner: summary[4],
+      nameCrowdfund:summary[5]
     };
   }
 
   renderCards() {
     const {
       balance,
-      manager,
+      owner,
       minimumContribution,
       expendituresCount,
-      approversCount
+      approversCount,
+      nameCrowdfund
     } = this.props;
 
     const items = [
       {
-        header: manager,
-        meta: 'Address of Manager',
+        header: nameCrowdfund,
+        meta:`Address of owner ${owner}`,
         description:
-          'The manager created this Crowdfund and can create Expenditures to withdraw money',
+          'The owner created this Crowdfund and can create Expenditures to withdraw money',
         style: { overflowWrap: 'break-word' }
       },
       {
-        header: minimumContribution,
-        meta: 'Minimum Contribution (wei)',
+        header:web3.utils.fromWei(minimumContribution, 'ether') ,
+        meta: 'Minimum Contribution (ether)',
         description:
-          'You must contribute at least this much wei to become an approver'
+          'You must contribute at least this much ether to become an approver'
       },
       {
         header: expendituresCount,
         meta: 'Number of Expenditures',
         description:
-          'A request tries to withdraw money from the contract. Expenditures must be approved by approvers'
+          'A expenditure tries to withdraw money from the contract. Expenditures must be approved by approvers'
       },
       {
         header: approversCount,
@@ -71,6 +73,7 @@ class CrowdfundShow extends Component {
   render() {
     return (
       <Layout>
+       
         <h3>Crowdfund Show</h3>
         <Grid>
           <Grid.Row>

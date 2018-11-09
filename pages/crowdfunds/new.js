@@ -21,7 +21,7 @@ class CrowdfundNew extends Component {
     try {
       const accounts = await web3.eth.getAccounts();
       await factory.methods
-        .createCrowdfund(this.state.minimumContribution, this.state.nameCrowdfund)
+        .createCrowdfund(web3.utils.toWei(this.state.minimumContribution, 'ether'), this.state.nameCrowdfund)
         .send({
           from: accounts[0]
         });
@@ -51,7 +51,7 @@ class CrowdfundNew extends Component {
           <Form.Field>
             <label>Minimum Contribution</label>
             <Input
-              label="wei"
+              label="ether"
               labelPosition="right"
               value={this.state.minimumContribution}
               onChange={event =>

@@ -42,6 +42,9 @@ class ExpenditureIndex extends Component {
 
     return (
       <Layout>
+        <Link route={`/crowdfunds/${this.props.address}`}>
+          <a>Back</a>
+        </Link>
         <h3>Expenditures</h3>
         <Link route={`/crowdfunds/${this.props.address}/expenditures/new`}>
           <a>
