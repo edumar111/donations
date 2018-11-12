@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "prod": "NODE_ENV=production node server.js"
   },
   "author": "Eduardo Marchena <edumar111@gmail.com> (www.socialdata.com.pe)",
   "license": "ISC",
