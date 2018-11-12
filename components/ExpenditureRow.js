@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Button } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import Crowdfund from '../ethereum/crowdfund';
+import { Link, Router } from '../routes';
 
 class ExpenditureRow extends Component {
   onApprove = async () => {
@@ -11,6 +12,7 @@ class ExpenditureRow extends Component {
     await crowdfund.methods.approveExpentidure(this.props.id).send({
       from: accounts[0]
     });
+    Router.pushRoute(`/crowdfunds/${this.props.address}/expenditures`);
   };
 
   onFinalize = async () => {
@@ -20,6 +22,7 @@ class ExpenditureRow extends Component {
     await crowdfund.methods.finalizeExpentidure(this.props.id).send({
       from: accounts[0]
     });
+    Router.pushRoute(`/crowdfunds/${this.props.address}/expenditures`);
   };
 
   render() {
