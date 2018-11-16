@@ -3,3 +3,5 @@ build/
 bin/
 ethereum/build/
 .next
+ethereum/library/eth-core/node_modules/
+ethereum/library/digital-identity/node_modules/

@@ -1,6 +1,8 @@
 const routes = require('next-routes')();
 
 routes
+  .add('/login', '/security/login')
+  .add('/register', '/security/register')
   .add('/crowdfunds/new', '/crowdfunds/new')
   .add('/crowdfunds/:address', '/crowdfunds/show')
   .add('/crowdfunds/:address/expenditures', '/crowdfunds/expenditures/index')

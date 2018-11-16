@@ -12,6 +12,8 @@
   "author": "Eduardo Marchena <edumar111@gmail.com> (www.socialdata.com.pe)",
   "license": "ISC",
   "dependencies": {
+    "digital-identity": "file:ethereum/library/digital-identity",
+    "eth-core": "file:ethereum/library/eth-core",
     "fs-extra": "^7.0.0",
     "ganache-cli": "^6.1.8",
     "mocha": "^5.2.0",

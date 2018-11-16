@@ -10,6 +10,8 @@ COPY routes.js /app/routes.js
 COPY package.json /app/package.json
 WORKDIR /app
 RUN npm install
+RUN npm i /app/ethereum/library/eth-core
+RUN npm i /app/ethereum/library/digital-identity
 RUN npm run build
 CMD ["npm","run", "prod" ]
 

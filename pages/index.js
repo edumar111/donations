@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import factory from '../ethereum/factory';
+import IdentityFactory from '../ethereum/identityFactory';
 import Layout from '../components/Layout';
 import { Link } from '../routes';
 import web3 from '../ethereum/web3';
 
 class CrowdfundIndex extends Component {
+
+  constructor () {
+      super();
+      this.state = {
+        loginview: false,
+        loginIn : false,
+        identityFactory:null,
+      };
+    }
   static async getInitialProps() {
+    
     const listFunds = await factory.methods.getDeployedCrowdfunds().call();  
     const crowdfunds = listFunds[0];
     const names = listFunds[1];

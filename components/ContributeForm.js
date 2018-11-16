@@ -3,6 +3,7 @@ import { Form, Input, Message, Button } from 'semantic-ui-react';
 import Crowdfund from '../ethereum/crowdfund';
 import web3 from '../ethereum/web3';
 import { Router } from '../routes';
+import web3Utils from 'web3-utils';
 
 class ContributeForm extends Component {
   state = {
@@ -22,7 +23,7 @@ class ContributeForm extends Component {
       const accounts = await web3.eth.getAccounts();
       await crowdfund.methods.contribute().send({
         from: accounts[0],
-        value: web3.utils.toWei(this.state.value, 'ether')
+        value: web3Utils.toWei(this.state.value, 'ether')
       });
 
       Router.replaceRoute(`/crowdfunds/${this.props.address}`);
