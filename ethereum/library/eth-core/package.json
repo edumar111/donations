@@ -1,0 +1,34 @@
+{
+  "name": "eth-core",
+  "version": "0.0.1",
+  "description": "Library for communication with Ethereum",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/everis-blockchain/eth-core.git"
+  },
+  "author": "Everis Peru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/everis-blockchain/eth-core/issues"
+  },
+  "homepage": "https://gitlab.com/everis-blockchain/eth-core#README",
+  "dependencies": {
+    "crypto-js": "3.1.9-1",
+    "eth-lib": "0.2.8",
+    "ethereumjs-tx": "1.3.7",
+    "ipfs-mini": "^1.1.2",
+    "isomorphic-fetch": "^2.2.1",
+    "mime-types": "^2.1.20",
+    "node-fetch": "^2.2.0",
+    "web3": "0.20.6",
+    "web3-utils": "^1.0.0-beta.35"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
